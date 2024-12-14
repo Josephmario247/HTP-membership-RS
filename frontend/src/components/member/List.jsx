@@ -4,6 +4,7 @@ import { columns, MemberButtons } from '../../utils/MembersHelper'
 import DataTable from 'react-data-table-component'
 import axios from 'axios'
 import toast from 'react-hot-toast'
+const VITE_API_URL = import.meta.env.VITE_API_URL
 
 
 const List = () => {
@@ -18,7 +19,7 @@ const List = () => {
   const fetchMembers= async () => {
     setMembLoading(true)
     try {
-      const response = await axios.get("http://localhost:5000/api/member", {
+      const response = await axios.get(`${VITE_API_URL}/api/member`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('token')}`
         }
@@ -36,7 +37,7 @@ const List = () => {
             gender: memb.gender,
             maritalStatus:memb.maritalStatus,
             stateOrigin: memb.stateOrigin,
-            image: <img width={40} className='rounded-full' src={`http://localhost:5000/${memb.image}`} alt=" member image" />,
+            image: <img width={40} className='rounded-full' src={`${VITE_API_URL}/${memb.image}`} alt="memb-image" />,
             action: (<MemberButtons id={memb._id} onDeletMember={onDeletMember}/>)
 
           }

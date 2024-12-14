@@ -1,4 +1,5 @@
 import express from 'express';
+import dotenv from "dotenv"
 import cors from 'cors'
 import authRouter from './routes/auth.js';
 // import departmentRouter from './routes/department.js';
@@ -10,11 +11,11 @@ import dashboardRouter from './routes/dashboard.js'
 
 
 import connectToDatabase from './db/db.js';
-
+dotenv.config()
 connectToDatabase()
 const app = express()
 app.use(cors({
-    origin: 'http://localhost:5173', // allow requests from both client and server
+    origin: ['http://localhost:5173'], // allow requests from both client and server
     credentials: true  // enable cookies for authentication
 }))
 app.use(express.json())

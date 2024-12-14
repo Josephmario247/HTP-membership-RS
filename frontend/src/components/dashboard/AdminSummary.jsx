@@ -3,13 +3,15 @@ import {FaBuilding, FaCheckCircle, FaFileAlt, FaHourglassHalf, FaMoneyBillWave, 
 import SummaryCard from './SummaryCard'
 import  axios from 'axios';
 import toast from 'react-hot-toast';
+const VITE_API_URL = import.meta.env.VITE_API_URL
+
 
 const AdminSummary = () => {
   const [summary, setSummary] = useState(null)
   useEffect(()=> {
     const fetchSummary = async() => {
       try {
-        const summary = await axios.get("http://localhost:5000/api/dashboard/summary",{
+        const summary = await axios.get(`${VITE_API_URL}/api/dashboard/summary`,{
           headers:{
             "Authorization": `Bearer ${localStorage.getItem('token')}`
         }
@@ -55,6 +57,8 @@ const AdminSummary = () => {
 
         </div>
     </div>
+
+   
   )
 } 
 

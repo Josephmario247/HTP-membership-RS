@@ -40,7 +40,7 @@ const Add = () => {
         setIsDisabled(formData.nextOfKin === '')
 
         try {
-            const response = await axios.post('http://localhost:5000/api/member/add',formDataObj,{
+            const response = await axios.post(`${VITE_API_URL}/api/member/add`,formDataObj,{
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`
                 }
@@ -218,9 +218,9 @@ const Add = () => {
                             <option value="">Select Status</option>
                             <option value="single">Single</option>
                             <option value="married">Married</option>
-                            <option value="single">Widowed</option>
-                            <option value="married">Seperated</option>
-                            <option value="single">Divorced</option>
+                            <option value="Widowed">Widowed</option>
+                            <option value="Widower">Widower</option>
+                            <option value="divorced">Divorced</option>
                         </select>
                     </div>
 

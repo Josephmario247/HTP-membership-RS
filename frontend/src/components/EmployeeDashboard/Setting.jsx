@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 import axios from 'axios'
 import toast from 'react-hot-toast'
+const VITE_API_URL = import.meta.env.VITE_API_URL
 
 const Setting = () => {
     const navigate = useNavigate()
@@ -24,7 +25,7 @@ const Setting = () => {
             setError("Password not match");
         }else{
             try {
-                const response = await axios.put("http://localhost:5000/api/setting/change-password", setting, {
+                const response = await axios.put(`${VITE_API_URL}/api/setting/change-password`, setting, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`,
                     },
