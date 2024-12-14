@@ -8,8 +8,6 @@ import memberRouter from './routes/member.js';
 // import leaveRouter from './routes/leave.js';
 import settingRouter from './routes/setting.js'
 import dashboardRouter from './routes/dashboard.js'
-import path from "path"
-
 
 import connectToDatabase from './db/db.js';
 dotenv.config()
@@ -21,10 +19,7 @@ app.use(cors({
 }))
 app.use(express.json())
 app.use(express.static('public/uploads')) // to access the static images in the serverside from the frontend
-app.use(express.static(path.join(__dirname,"..","frontend","build")))
-app.get('*', (req, res) =>{
-    res.sendFile(path.join(__dirname,"..","frontend","build","index.html"))
-})
+
 
 app.use('/api/auth', authRouter)  // Mounting the auth routes at '/api/auth'
 
