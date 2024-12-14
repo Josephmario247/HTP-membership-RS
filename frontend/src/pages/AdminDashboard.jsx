@@ -5,16 +5,17 @@ import AdminSideBar from '../components/dashboard/AdminSideBar'
 import NavBar from '../components/dashboard/NavBar'
 
 const AdminDashboard = () => {
-  const {user} = useAuth()
-  
+  const { user } = useAuth()
+
   return (
     <div className='flex md:flex-col'>
       <AdminSideBar/>
-      <div className='flex-1 md:flex-col ml-64 bg-gray-100 h-screen'>
+      <div className='flex-1 md:flex-col md:ml-64 bg-gray-100 h-screen'>
         <NavBar/>
         <Outlet/>
       </div>
     </div>
+    
   )
 
 }

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { ImCheckmark } from "react-icons/im";
 import { FaXmark } from "react-icons/fa6";
 import toast from "react-hot-toast";
+const VITE_API_URL = import.meta.env.VITE_API_URL
 const View = () => {
     const { id } = useParams();
     const [member, setMember] = useState(null);
@@ -14,9 +15,7 @@ const View = () => {
     useEffect(() => {
         const fetchMember = async () => {
             try {
-                const response = await axios.get(
-                    `http://localhost:5000/api/member/${id}`,
-                    {
+                const response = await axios.get(`${VITE_API_URL}/api/member/${id}`, {
                         headers: {
                             Authorization: `Bearer ${localStorage.getItem("token")}`,
                         },
@@ -109,7 +108,7 @@ const View = () => {
                         <div>
                             <img
                                 className="rounded-md border-2 w-20 h-20 border-[#41436a]"
-                                src={`http://localhost:5000/${member?.image}`}
+                                src={`${VITE_API_URL}/${member?.image}`}
                                 alt="member img"
                             />
                         </div>

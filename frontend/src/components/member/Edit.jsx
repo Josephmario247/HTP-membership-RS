@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useNavigate, useParams } from 'react-router-dom'
 import toast from 'react-hot-toast'
+const VITE_API_URL = import.meta.env.VITE_API_URL
 
 const Edit = () => {
     const [member, setMember] = useState({
@@ -25,7 +26,7 @@ const Edit = () => {
     useEffect(() => {
         const fetchMember = async () => {
             try {
-                const response = await axios.get(`http://localhost:5000/api/member/${id}`, {
+                const response = await axios.get(`${VITE_API_URL}/api/member/${id}`, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
                     }
@@ -56,7 +57,7 @@ const Edit = () => {
         e.preventDefault()
         
         try {
-            const response = await axios.put(`http://localhost:5000/api/member/${id}`, member, {
+            const response = await axios.put(`${VITE_API_URL}/api/member/${id}`, member, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`
                 }
@@ -101,6 +102,9 @@ const Edit = () => {
                                 <option value="">Select Status</option>
                                 <option value="single">Single</option>
                                 <option value="married">Married</option>
+                                <option value="divorced">Divorced</option>
+                                <option value="widowed">Widowed</option>
+                                <option value="Widower">Widower</option>
                             </select>
                         </div>
 

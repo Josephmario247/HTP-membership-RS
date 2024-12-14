@@ -1,10 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import {
-  FaBuilding,
-  FaCalendarAlt,
   FaCogs,
-  FaMoneyBillWave,
   FaTachometerAlt,
   FaUser,
   FaUsers

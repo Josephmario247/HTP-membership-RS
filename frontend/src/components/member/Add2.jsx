@@ -3,6 +3,8 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { GrClose } from "react-icons/gr";
 import toast from 'react-hot-toast'
+const VITE_API_URL = import.meta.env.VITE_API_URL
+
 
 // Reusable input component
 const FormInput = ({ label, name, type, value, onChange, options, required }) => {
@@ -55,7 +57,7 @@ const AdditionalInfo = ({ formData, handleChange }) => (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <FormInput label="Occupation" name="occupation" type="text" value={formData.occupation} onChange={handleChange} required />
         <FormInput label="State Of Origin" name="stateOrigin" type="select" onChange={handleChange} options={["Abia", "Adamawa","Akwa-Ibom","Anambra","Bauchi","Bayelsa","Benue","Borno","Cross-River","Delta","Ebonyi","Edo","Ekiti","Enugu","FCT","Gombe","Imo","Jigawa","Kaduna","Kano","Katsina","Kebbi","Kebbi","Kwara","Lagos","Nasarawa","Niger","Ogun","Ondo","Osun","Oyo","Plateau","Rivers","Sokoto","Taraba","Yobe","Zamfara"]} className="mt-10" required />
-        <FormInput label="Marital Status" name="maritalStatus" type="select" onChange={handleChange} options={["single", "married", "widowed", "separated", "divorced"]} required />
+        <FormInput label="Marital Status" name="maritalStatus" type="select" onChange={handleChange} options={["single", "married", "widowed", "Widower", "divorced"]} required />
         <FormInput label="Passport" name="image" type="file" onChange={handleChange} required />
     </div>
 )
@@ -110,7 +112,7 @@ const Add2 = () => {
         setIsDisabled(formData.nextOfKin === "")
         
         try {
-            const response = await axios.post('http://localhost:5000/api/member/add', formDataObj, {
+            const response = await axios.post(`${VITE_API_URL}/api/member/add`, formDataObj, {
                 headers: {
                     "Authorization": `Bearer ${localStorage.getItem('token')}`
                 }
@@ -159,7 +161,7 @@ const Add2 = () => {
     const handleSubmitClick = (e) => {
         if (isDisabled) {
             e.preventDefault()// Prevent form submission
-            return toast.error("Please fill in all required fields, including Next of Kin information.",{id:'nextOfKin'});
+            return toast.error("Please fill all required fields, including Next of Kin information.",{id:'nextOfKin'});
         }
     };
 

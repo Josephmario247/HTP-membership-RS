@@ -12,18 +12,22 @@ const userRegister = async () => {
             password: hashPassword,
             role:"Admin"
 
-        },{
+        })
+        await newUser.save()
+        const newUser2 = new User({
             name:"Rev. Sr. Veronica",
             email:"nwaiwuamaka315@gmail.com",
             password: hashPassword,
             role:"Admin"
-        },{
+        })
+        await newUser2.save()
+        const newUser3 = new User({
             name:"Rev. Fr. Jimbili Moses",
             email:"mjimbili@yahoo.co.uk",
             password: hashPassword,
             role:"Admin"
         })
-        await newUser.save()
+        await newUser3.save()
         
     } catch (error) {
         console.log(error)
