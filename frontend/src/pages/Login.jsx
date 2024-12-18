@@ -16,8 +16,8 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            toast.loading("Please await for verification...",{ id:"123"})
             const response = await axios.post(`${VITE_API_URL}/api/auth/login`, {email, password})
+            toast.loading("Please await for verification...",{ id:"123"})
             if (response.data.success) {
                 login(response.data.user)
                 localStorage.setItem("token",response.data.token)
