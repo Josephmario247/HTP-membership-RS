@@ -16,8 +16,8 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            const response = await axios.post(`${VITE_API_URL}/api/auth/login`, {email, password})
             toast.loading("Please await for verification...",{ id:"123"})
+            const response = await axios.post(`${VITE_API_URL}/api/auth/login`, {email, password})
             if (response.data.success) {
                 login(response.data.user)
                 localStorage.setItem("token",response.data.token)
@@ -69,7 +69,7 @@ const Login = () => {
                 <a href="#" className='text-[#41436A] hover:text-[#3e44b7]'>Forgot password ?</a>
             </div>
             <div className="mb-4 ">
-            <button type='submit' className='w-full bg-[#41436A] text-white py-2 rounded-md'>Login</button>
+            <button type='submit' className='w-full bg-[#41436A] text-white py-2 rounded-md cursor-pointer'>Login</button>
             </div>
         </form>
        </div>
