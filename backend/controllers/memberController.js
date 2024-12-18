@@ -1,7 +1,6 @@
 import multer from "multer";
 import path from "path";
 import Member from "../models/Member.js";
-import NextOfKin from "../models/NextOfKin.js";
 import fs from "fs"
 
 
