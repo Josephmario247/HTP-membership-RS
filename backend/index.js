@@ -14,7 +14,7 @@ dotenv.config()
 connectToDatabase()
 const app = express()
 app.use(cors({
-    origin: process.env.VITE_FRONTEND_URL, // allow requests from both client and server
+    origin: [process.env.VITE_FRONTEND_URL || process.env.VITE_FRONTEND_URl_www], // allow requests from both client and server
     credentials: true  // enable cookies for authentication
 }))
 app.use(express.json())
