@@ -45,7 +45,7 @@ const AddMember = async (req, res) => {
     if (member) {
       return res
         .status(400)
-        .json({ success: false, error: "Oops! Member already registered." });
+        .json({ success: false, error: "Oops! Member already registered with this email." });
     }
   const IsRegNo = await Member.findOne({regNo});
   if (IsRegNo) {
@@ -75,34 +75,21 @@ const AddMember = async (req, res) => {
       confirmation,
       holyEucharist,
       image: req.file ? req.file.filename : "",
+      nextOfKin:{
+        fullName: nextOfKin.fullName.toUpperCase(),
+        email: nextOfKin.email,
+        address: nextOfKin.address,
+        gender: nextOfKin.gender,
+        relationship: nextOfKin.relationship,
+        phoneNo: nextOfKin.phoneNo
+      }
     });
     // console.log(newMember);
     const savedMember = await newMember.save();
-    //destructuring next of kin data
-    const { nextkinName,
-      nextOfKinAddress,
-      nextKinEmail,
-      nextKinGender,
-      nextKinRelation,
-      nextKinPhone } = nextOfKin
-    if (!nextkinName && !nextOfKinAddress && !nextKinEmail && !nextKinGender && !nextKinRelation && !nextKinPhone) {
-      return res
-        .status(400)
-        .json({ success: false, error: "Next of Kin data is required" });
-    }
-    const newNextOfkin = new NextOfKin({
-      memberId: savedMember._id,
-      nextkinName: nextkinName,
-      nextKinEmail: nextKinEmail,
-      nextOfKinAddress: nextOfKinAddress,
-      nextKinGender: nextKinGender,
-      nextKinRelation: nextKinRelation,
-      nextKinPhone: nextKinPhone,
-    });
-    await newNextOfkin.save();
+   
     return res
       .status(200)
-      .json({ success: true, message: "Member registered successfully" });
+      .json({ success: true, message: `${savedMember.fullName} registered successfully`});
   } catch (error) {
     console.log(error.message);
     return res
@@ -128,14 +115,7 @@ const getMember = async (req, res) => {
 
     //find member base on member _Id 
     member = await Member.findById({ _id: id })
-    // find employee details base on userId and populate user and department collections  
-    let nextOfkin
-    if (!nextOfkin) {
-      nextOfkin = await NextOfKin.findOne({ memberId: id })
-      // .populate("userId", { password: 0 })
-      // .populate("department");
-    }
-    return res.status(200).json({ success: true, member, nextOfkin });
+    return res.status(200).json({ success: true, member});
   } catch (error) {
     return res
       .status(500)

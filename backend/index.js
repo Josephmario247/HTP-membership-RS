@@ -31,7 +31,9 @@ app.use('/api/member', memberRouter) // mounting the member routes at '/api/memb
 // app.use('/api/leave', leaveRouter) // mounting the leave routes at '/api/leave
 app.use('/api/setting', settingRouter) // mounting the setting password routes at '/api/setting
 app.use('/api/dashboard', dashboardRouter) // mounting the dashboard routes at '/api/dashboard 
-
+app.use("/", (req, res) =>{
+    res.send("welcome Api is working")
+})
 app.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${process.env.PORT}`)
 })

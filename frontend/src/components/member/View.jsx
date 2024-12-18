@@ -4,11 +4,11 @@ import { useParams } from "react-router-dom";
 import { ImCheckmark } from "react-icons/im";
 import { FaXmark } from "react-icons/fa6";
 import toast from "react-hot-toast";
+import images from '../../assets/images.jpeg';
 const VITE_API_URL = import.meta.env.VITE_API_URL
 const View = () => {
     const { id } = useParams();
     const [member, setMember] = useState(null);
-    const [nextOfkin, setNextOfKin] = useState(null);
     // const printableRef = useRef(null);
     const cardRef = useRef(null);
 
@@ -23,8 +23,6 @@ const View = () => {
                 );
                 if (response.data.success) {
                     setMember(response.data.member);
-                    setNextOfKin(response.data.nextOfkin);
-                    // console.log(response.data.nextOfkin)
                 }
             } catch (error) {
                 if (error.response && !error.response.data.success) {
@@ -78,7 +76,7 @@ const View = () => {
     return (
         <>
 
-            <div className="m-2 mt-10 fixed">
+            <div className="m-2 mt-10 hidden md:block fixed">
                 <button
                     onClick={() => handlePrint(cardRef)}
                     className="bg-slate-400 hover:bg-slate-700 text-center p-2 text-white font-medium rounded mt-4"
@@ -87,27 +85,27 @@ const View = () => {
                 </button>
             </div>
 
-            {member && nextOfkin ? (
+            {member? (
                 <div
                     ref={cardRef}
-                    className="max-w-4xl mx-auto m-20 bg-[#fdfbcb] p-10 rounded-md shadow-md"
+                    className="md:max-w-2xl mx-auto mt-5 text-sm md:mt-20 bg-[#fdfbcb] p-10 rounded-md shadow-md mb-20"
                 >
                     <div className="flex items-center mb-10">
-                        <img src='/images.jpeg' alt="Trinty img"className=" rounded-md border-2 w-16 h-16" />
+                        <img src={images} alt="HT-img"className=" rounded-md border-2 w-16 h-16" />
                         <div className="flex flex-col items-center justify-center">
-                            <p className="text-[#004d85] font-bold text-2xl">CATHOLIC ARCHDIOCESE OF ABUJA</p>
-                            <p className="text-[#ed1b09] font-bold text-xl">HOLY TRINITY PARISH, MAITAMA </p>
-                            <p className="text-[#2b291d] font-medium ml-20 leading-3 text-sm">Plot 3795, Aguiyi Ironsi Street, Maitama-Abuja. Box 8244, Wuse GPO </p>
+                            <p className="text-[#004d85] font-bold text-sm md:text-2xl">CATHOLIC ARCHDIOCESE OF ABUJA</p>
+                            <p className="text-[#ed1b09] font-bold text-sm md:text-xl">HOLY TRINITY PARISH, MAITAMA </p>
+                            <p className="text-[#2b291d] font-medium ml-20 text-sm leading-3 md:text-sm">Plot 3795, Aguiyi Ironsi Street, Maitama-Abuja. Box 8244, Wuse GPO </p>
                         </div>
 
                     </div>
                     <h2 className="text-lg font-bold text-center underline">Member Details</h2>
-                    <div className="text-gray-400">Date Registered:{new Date(member?.createdAt).toLocaleDateString()}</div>
+                    <div className="text-gray-400 text-sm">Date Registered:{new Date(member?.createdAt).toLocaleDateString()}</div>
                     <hr className="border border-slate-500 mt-3" />
                     <div className="flex items-center gap-6 m-6">
                         <div>
                             <img
-                                className="rounded-md border-2 w-20 h-20 border-[#41436a]"
+                                className="rounded-md border-2 w-10 h-10 md:w-20 md:h-20 border-[#41436a]"
                                 src={`${VITE_API_URL}/${member?.image}`}
                                 alt="member img"
                             />
@@ -119,7 +117,7 @@ const View = () => {
                             </p>
                             <p className="font-sans font-bold text-sm leading-3">{member?.fullName}</p>
                             <p className="text-sm text-gray-500 font-medium">
-                                Registration Number: <span className="font-bold text-[#974063]"> {member?.regNo}
+                                Registration Number: <span className="text-sm text-[#974063]"> {member?.regNo}
                                 </span>
                             </p>
                         </div>
@@ -216,31 +214,31 @@ const View = () => {
                     <div className="grid grid-cols-2 md:grid-cols-4 font-sans">
                         <p className="flex flex-col text-sm">
 
-                            <span className="font-bold">Name:</span> {nextOfkin?.nextkinName}
+                            <span className="font-bold">Name:</span> {member?.nextOfKin?.fullName}
                         </p>
                         <p className="flex flex-col text-sm">
 
                             <span className="font-bold">Gender:</span>
-                            {nextOfkin?.nextKinGender}
+                            {member?.nextOfKin?.gender}
                         </p>
                         <p className="flex flex-col text-sm">
 
                             <span className="font-bold">Relationship:</span>
-                            {nextOfkin?.nextKinRelation}
+                            {member?.nextOfKin?.relationship}
                         </p>
                         <p className="flex flex-col text-sm">
 
                             <span className="font-bold">Phone No:</span>
-                            {nextOfkin?.nextKinPhone}
+                            {member?.nextOfKin?.phoneNo}
                         </p>
                         <p className="flex flex-col text-sm">
 
                             <span className="font-bold">Email:</span>
-                            {nextOfkin?.nextKinEmail}
+                            {member?.nextOfKin?.email}
                         </p>
                         <p className="flex flex-col text-sm">
                             <span className="font-bold">Address:</span>
-                            <p className="leading-4 font-serif">{nextOfkin?.nextOfKinAddress}</p>
+                            <p className="leading-4 font-serif">{member?.nextOfKin?.address}</p>
                         </p>
 
                     </div>

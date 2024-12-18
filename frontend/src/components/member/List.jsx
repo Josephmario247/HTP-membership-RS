@@ -66,15 +66,15 @@ const List = () => {
   }
 
   return (
-    <div className='p-5 mt-20'>
+    <div className='md:p-5 p-2 mt-10 md:mt-20'>
         <div className='text-center'>
           <h3 className='text-2xl font-bold'>Manage Members</h3>
         </div>
         <div className='flex justify-between items-center'>
           <input type="text" placeholder='Search Member By Name' onChange={handleFilter} className='px-4 py-0.5 rounded hover:shadow-md border' />
-          <Link to={'/admin-dashboard/register-member'} className='px-4 py-1 bg-teal-600 rounded hover:shadow-md text-white'> Add New Member</Link>
+          <Link to={'/admin-dashboard/register-member'} className='px-3 py-1 bg-[#41436A] hover:bg-[#2a2b44] cursor-pointer rounded hover:shadow-md text-white'> Add New Member</Link>
         </div>
-        <div className='mt-6'>
+        <div className='mt-3 md:mt-6 '>
             <DataTable columns={columns} data={filteredMember} pagination/>
         </div>
     </div>

@@ -15,9 +15,9 @@ const Login = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault()
-        toast.loading("Please await for verification...",{ id:"123"})
         try {
             const response = await axios.post(`${VITE_API_URL}/api/auth/login`, {email, password})
+            toast.loading("Please await for verification...",{ id:"123"})
             if (response.data.success) {
                 login(response.data.user)
                 localStorage.setItem("token",response.data.token)
@@ -48,10 +48,10 @@ const Login = () => {
     }
   return (
     <div className='flex flex-col items-center h-screen justify-center font-bold bg-gradient-to-b from-[#41436A] from-50% to-white-300 to-50% space-y-6'>
-            <h2 className='font-serif text-3xl text-white pl-7'>HTP Registration System</h2>
+            <h2 className='font-serif text-2xl text-white ml-14'>Holy Trinity Parish Registration System</h2>
        <div className='border shadow p-6 w-80 bg-white rounded-md '>
             <h2 className='text-2xl font-bold mb-4'>Login</h2>
-            {error && <p className='text-red-500'>{error}</p>}
+            {/* {error && <p className='text-red-500'>{error}</p>} */}
        <form onSubmit={handleSubmit}>
             <div className='mb-4'>
                 <label htmlFor="email" className='block text-gray-700'>Email</label>
