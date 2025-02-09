@@ -52,7 +52,7 @@ function App() {
           <Route path='/admin-dashboard/register-member' element={<Add2 />}></Route>
           <Route path='/admin-dashboard/members/:id' element={<View />}></Route>
           <Route path='/admin-dashboard/members/modify/:id' element={<Edit />}></Route>
-          <Route path='/admin-dashboard/member/modify/regNo' element={<Edit />}></Route>
+          {/* <Route path='/admin-dashboard/member/modify/regNo' element={<Edit />}></Route> */}
           <Route path='/admin-dashboard/setting' element={<Setting />}></Route>
 
         </Route>

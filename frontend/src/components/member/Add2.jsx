@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 import { GrClose } from "react-icons/gr";
@@ -56,7 +56,7 @@ const ContactInfo = ({ formData, handleChange }) => (
 const AdditionalInfo = ({ formData, handleChange }) => (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <FormInput label="Occupation" name="occupation" type="text" value={formData.occupation} onChange={handleChange} />
-        <FormInput label="State Of Origin" name="stateOrigin" type="select" onChange={handleChange} options={["Abia", "Adamawa", "Akwa-Ibom", "Anambra", "Bauchi", "Bayelsa", "Benue", "Borno", "Cross-River", "Delta", "Ebonyi", "Edo", "Ekiti", "Enugu", "FCT", "Gombe", "Imo", "Jigawa", "Kaduna", "Kano", "Katsina", "Kebbi", "Kebbi", "Kwara", "Lagos", "Nasarawa", "Niger", "Ogun", "Ondo", "Osun", "Oyo", "Plateau", "Rivers", "Sokoto", "Taraba", "Yobe", "Zamfara"]} className="mt-10" required />
+        <FormInput label="State Of Origin" name="stateOrigin" type="select" onChange={handleChange} options={["Abia", "Adamawa", "Akwa-Ibom", "Anambra", "Bauchi", "Bayelsa", "Benue", "Borno", "Cross-River", "Delta", "Ebonyi", "Edo", "Ekiti", "Enugu", "FCT", "Gombe", "Imo", "Jigawa", "Kaduna", "Kano", "Katsina", "Kebbi", "Kwara", "Lagos", "Nasarawa", "Niger", "Ogun", "Ondo", "Osun", "Oyo", "Plateau", "Rivers", "Sokoto", "Taraba", "Yobe", "Zamfara"]} className="mt-10" required />
         <FormInput label="Marital Status" name="maritalStatus" type="select" onChange={handleChange} options={["single", "married", "widowed", "Widower", "divorced"]} required />
         <FormInput label="Passport" name="image" type="file" onChange={handleChange} />
     </div>
@@ -94,6 +94,8 @@ const Add2 = () => {
     const [showNextOfKinPopup, setShowNextOfKinPopup] = useState(false);
     const [nextOfKinError, setNextOfKinError] = useState('');
     const [isDisabled, setIsDisabled] = useState(true);
+    const [highestRegNo, setHighestRegNo] = useState('')
+    const [nextRegNo, setNextRegNo] = useState('')
     const navigate = useNavigate()
 
     const handleChange = (e) => {
@@ -118,7 +120,7 @@ const Add2 = () => {
             // formDataObj.append(key, formData[key])
         })
 
-        console.log(formData)
+        // console.log(formData)
         setIsDisabled(formData.nextOfKin === "")
 
         try {
@@ -174,10 +176,36 @@ const Add2 = () => {
             return toast.error("Please fill all required fields, including Next of Kin information.", { id: 'nextOfKin' });
         }
     };
-
+    const highestRegNO = async () => {
+       
+        try {
+            const response = await axios.get(`${VITE_API_URL}/api/highestRegNO/regNo`, {
+                headers: {
+                  'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+              })
+            if (response.data.success) {
+                setHighestRegNo(response.data.highestRegNo);
+                setNextRegNo(response.data.nextRegNo);
+            }
+        } catch (error) {
+            console.log(error)
+             if (error.response && !error.response.data.success) {
+                    toast.error(error.response.data.error,{id:123});
+                }
+        }
+    }
+    useEffect(() => {
+        highestRegNO();
+    }, []);
+    
     return (
         <div className='max-w-3xl mx-auto bg-white p-8 rounded-md shadow-md mt-10 md:mt-20 mb-10'>
             <h2 className=" text-xl md:text-2xl font-bold mb-6 text-center ">Membership Registration Form</h2>
+            <div className='flex justify-between items-center m-2'>
+                <div className='rounded-md border text-sm font-bold w-auto h-auto p-2  hover:shadow-md '>Last RegNo: <span className='text-red-500 cursor-pointer'>{highestRegNo } </span></div>
+                <div className='rounded-md border text-sm font-bold w-auto h-auto p-2 hover:shadow-md '>Next RegNo: <span className=' text-[#e93df5] cursor-pointer '>{nextRegNo}</span></div>
+            </div>
             <form onSubmit={handleSubmit} encType="multipart/form-data">
                 <h3 className="text-lg md:text-xl  font-semibold mb-4">Personal Information</h3>
                 <PersonalInfo formData={formData} handleChange={handleChange} />

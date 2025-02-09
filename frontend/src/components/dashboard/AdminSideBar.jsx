@@ -69,7 +69,7 @@ const AdminSideBar = () => {
             <FaUsers className="text-lg" />
             <span className="md:hidden group-hover:block">Members</span>
           </NavLink>
-          <NavLink
+          {/* <NavLink
             to="/admin-dashboard/member/modify/regNo"
             className={({ isActive }) =>
               `${isActive ? 'bg-[#41436A]' : ''} flex items-center space-x-4 py-2.5 px-4 rounded group-hover:px-4`
@@ -77,7 +77,7 @@ const AdminSideBar = () => {
           >
             <FaUser className="text-lg" />
             <span className="md:hidden group-hover:block">Modify Member</span>
-          </NavLink>
+          </NavLink> */}
           {/* <NavLink
             // to="/admin-dashboard/baptism/register"
             className={({ isActive }) =>

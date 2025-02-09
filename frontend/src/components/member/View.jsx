@@ -88,7 +88,7 @@ const View = () => {
             {member? (
                 <div
                     ref={cardRef}
-                    className="md:max-w-2xl mx-auto mt-5 text-sm md:mt-20 bg-[#fdfbcb] p-10 rounded-md shadow-md mb-20"
+                    className="md:max-w-4xl mx-auto mt-5 text-sm md:mt-20 bg-[#fdfbcb] p-10 rounded-md shadow-md mb-20"
                 >
                     <div className="flex items-center mb-10">
                         <img src={images} alt="HT-img"className=" rounded-md border-2 w-16 h-16" />
@@ -107,7 +107,7 @@ const View = () => {
                             <img
                                 className="rounded-md border-2 w-10 h-10 md:w-20 md:h-20 border-[#41436a]"
                                 src={`${VITE_API_URL}/${member?.image}`}
-                                alt="member img"
+                                alt="Img"
                             />
                         </div>
 
@@ -115,65 +115,65 @@ const View = () => {
                             <p className="font-sans font-bold text-sm">
                                 {(member?.title)}
                             </p>
-                            <p className="font-sans font-bold text-sm leading-3">{member?.fullName}</p>
+                            <p className="font-sans font-bold text-sm leading-2">{member?.fullName}</p>
                             <p className="text-sm text-gray-500 font-medium">
                                 Registration Number: <span className="text-sm text-[#974063]"> {member?.regNo}
                                 </span>
                             </p>
                         </div>
                     </div>
-                    <div className="grid grid-cols-2 md:grid-cols-4 m-5 gap-2">
-                        <div className="flex flex-col placeholder:mb-3">
+                    <div className="grid grid-cols-2 md:grid-cols-4 md:m-5 gap-2 ">
+                        <div className="flex flex-col placeholder:mb-3 gap-2">
                             <p className="text-sm font-bold">Marital Status</p>
-                            <p className="font-serif">{member?.maritalStatus}</p>
+                            <p className="text-pretty">{member?.maritalStatus}</p>
                         </div>
-                        <div className="flex  flex-col mb-3">
+                        <div className="flex  flex-col mb-3 gap-2">
                             <p className="text-sm font-bold">Gender:</p>
-                            <p className="font-serif">{member?.gender}</p>
+                            <p className="text-pretty">{member?.gender}</p>
                         </div>
 
-                        <div className="flex flex-col mb-3">
+                        <div className="flex flex-col mb-3 gap-2">
                             <p className="text-sm font-bold">Date of Birth:</p>
                             <p className="font-sans">
                                 {new Date(member?.dob).toLocaleDateString()}
                             </p>
                         </div>
-                        <div className="flex flex-col mb-3">
+                        <div className="flex flex-col mb-3 gap-2">
                             <p className="text-sm font-semibold">Email:</p>
-                            <p className="font-serif">{member?.email}</p>
+                            <p className="text-pretty w-auto">{member?.email}</p>
                         </div>
-                        <div className="flex flex-col mb-3">
+                        <div className="flex flex-col mb-3 gap-2">
                             <p className="text-sm font-semibold">Phone No:</p>
                             <p className="font-sans">{member?.phoneNo}</p>
                         </div>
-                        <div className="flex flex-col mb-3">
+                        <div className="flex flex-col mb-3 gap-2">
                             <p className="text-sm font-bold">State Of Origin:</p>
-                            <p className="font-serif">{member?.stateOrigin}</p>
+                            <p className="text-pretty">{member?.stateOrigin}</p>
                         </div>
 
-                        <div className="flex flex-col mb-3">
+                        <div className="flex flex-col mb-3 gap-2">
                             <p className="text-sm font-bold">Occupation:</p>
-                            <p className="font-serif">{member?.occupation}</p>
+                            <p className="text-pretty w-auto">{member?.occupation}</p>
                         </div>
-                        <div className="flex flex-col mb-3">
+                        <div className="flex flex-col mb-3 gap-2">
                             <p className="text-sm font-bold">Office Phone:</p>
                             <p className="font-sans">{member?.officePhoneNo}</p>
                         </div>
 
-                        <div className="flex flex-col mb-3">
+                        <div className="flex flex-col mb-3 gap-2">
                             <p className="text-sm font-bold">Address:</p>
-                            <p className="font-serif leading-4">{member?.residential}</p>
+                            <p className="text-pretty leading-1 w-auto">{member?.residential}</p>
                         </div>
 
-                        <div className="flex flex-col mb-3">
+                        <div className="flex flex-col mb-3 gap-2">
                             <p className="text-sm font-bold">Home Parish:</p>
-                            <p className="font-serif leading-4">{member?.homeParish}</p>
+                            <p className="text-pretty leading-4">{member?.homeParish}</p>
                         </div>
-                        <div className="flex flex-col mb-3">
+                        <div className="flex flex-col mb-3 gap-2">
                             <p className="text-sm font-bold">Home Address:</p>
-                            <p className="font-serif leading-4">{member?.homeAdd}</p>
+                            <p className="text-pretty leading-4 w-auto">{member?.homeAdd}</p>
                         </div>
-                        <div className="flex flex-col mb-3">
+                        <div className="flex flex-col mb-3 gap-2">
                             <p className="text-sm font-bold">Sacrament:</p>
                             <div className="flex-col leading-4">
                                 <p className="font-medium text-[#ca35eb] flex gap-2 items-center">
@@ -201,9 +201,9 @@ const View = () => {
                                 </p>
                             </div>
                         </div>
-                        <div className="flex flex-col mb-3">
+                        <div className="flex flex-col mb-3 gap-2">
                             <p className="text-sm font-bold">Community/Societies:</p>
-                            <p className="font-serif leading-4">{member?.cathCommunity || "None"}</p>
+                            <p className="text-pretty leading-4 w-auto">{member?.cathCommunity || "None"}</p>
                         </div>
                     </div>
                     <hr className="border border-slate-500" />
@@ -211,34 +211,34 @@ const View = () => {
                         Next of Kin Details
                     </p>
 
-                    <div className="grid grid-cols-2 md:grid-cols-4 font-sans">
-                        <p className="flex flex-col text-sm">
+                    <div className="grid grid-cols-2 md:grid-cols-4 font-sans pb-2 gap-2">
+                        <p className="flex flex-col text-sm gap-1">
 
-                            <span className="font-bold">Name:</span> {member?.nextOfKin?.fullName}
+                            <span className="font-bold ">Name:</span> {member?.nextOfKin?.fullName}
                         </p>
-                        <p className="flex flex-col text-sm">
+                        <p className="flex flex-col text-sm gap-1">
 
                             <span className="font-bold">Gender:</span>
                             {member?.nextOfKin?.gender}
                         </p>
-                        <p className="flex flex-col text-sm">
+                        <p className="flex flex-col text-sm gap-1">
 
                             <span className="font-bold">Relationship:</span>
                             {member?.nextOfKin?.relationship}
                         </p>
-                        <p className="flex flex-col text-sm">
+                        <p className="flex flex-col text-sm gap-1">
 
                             <span className="font-bold">Phone No:</span>
                             {member?.nextOfKin?.phoneNo}
                         </p>
-                        <p className="flex flex-col text-sm">
+                        <p className="flex flex-col text-sm gap-1">
+                            <span className="font-bold">Address:</span>
+                            <p className="leading-4 text-pretty w-auto">{member?.nextOfKin?.address}</p>
+                        </p>
+                        <p className="flex flex-col text-sm gap-1">
 
                             <span className="font-bold">Email:</span>
-                            {member?.nextOfKin?.email}
-                        </p>
-                        <p className="flex flex-col text-sm">
-                            <span className="font-bold">Address:</span>
-                            <p className="leading-4 font-serif">{member?.nextOfKin?.address}</p>
+                            <p className="w-auto text-pretty leading-1 ">{member?.nextOfKin?.email}</p>
                         </p>
 
                     </div>

@@ -40,17 +40,17 @@ const AddMember = async (req, res) => {
   } = req.body;
   try {
     //To check if the member exists in the database
-    const member = await Member.findOne({ email});
+    const member = await Member.findOne({ email });
     if (member) {
       return res
         .status(400)
         .json({ success: false, error: "Oops! Member already registered with this email." });
     }
-  const IsRegNo = await Member.findOne({regNo});
-  if (IsRegNo) {
+    const IsRegNo = await Member.findOne({ regNo });
+    if (IsRegNo) {
       return res
-       .status(400)
-       .json({ success: false, error: "Oops! registration number already exists." });
+        .status(400)
+        .json({ success: false, error: "Oops! registration number already exists." });
     }
     //Create a new member
     const newMember = new Member({
@@ -74,7 +74,7 @@ const AddMember = async (req, res) => {
       confirmation,
       holyEucharist,
       image: req.file ? req.file.filename : "",
-      nextOfKin:{
+      nextOfKin: {
         fullName: nextOfKin.fullName.toUpperCase(),
         email: nextOfKin.email,
         address: nextOfKin.address,
@@ -85,15 +85,15 @@ const AddMember = async (req, res) => {
     });
     // console.log(newMember);
     const savedMember = await newMember.save();
-   
+
     return res
       .status(200)
-      .json({ success: true, message: `${savedMember.fullName} registered successfully`});
+      .json({ success: true, message: `${savedMember.fullName} registered successfully` });
   } catch (error) {
     console.log(error.message);
     return res
       .status(500)
-      .json({ success: false, error:"Server error in saving member" });
+      .json({ success: false, error: "Server error in saving member" });
   }
 };
 
@@ -114,18 +114,18 @@ const getMember = async (req, res) => {
 
     //find member base on member _Id 
     member = await Member.findById({ _id: id })
-    return res.status(200).json({ success: true, member});
+    return res.status(200).json({ success: true, member });
   } catch (error) {
     return res
       .status(500)
-      .json({ success: false, error: "get member server error" });
+      .json({ success: false, error: "Get member server error" });
   }
 };
 const updateMember = async (req, res) => {
   try {
     const { id } = req.params;
     const {
-      name,
+      fullName,
       title,
       maritalStatus,
       occupation,
@@ -135,7 +135,16 @@ const updateMember = async (req, res) => {
       baptism,
       holyEucharist,
       confirmation,
-      image, } = req.body;
+      image,
+      gender,
+      stateOrigin,
+      cathCommunity,
+      email,
+      nextOfKin
+
+
+    } = req.body;
+
     //To check if the members exists in the database
     const member = await Member.findById({ _id: id });
     if (!member && !member.regNo) {
@@ -143,19 +152,11 @@ const updateMember = async (req, res) => {
         .status(404)
         .json({ success: false, error: "member not found" });
     }
-    //To check if the user exist in the database
-    // const user = await User.findById({ _id: employee.userId });
-    // if (!user) {
-    //   return res.status(404).json({ success: false, error: "User not found" });
-    // }
-    // const updateUser = await User.findByIdAndUpdate(
-    //   { _id: employee.userId },
-    //   { name }
-    // );
+
     const updateMember = await Member.findByIdAndUpdate(
       { _id: id },
       {
-        name,
+        fullName,
         title,
         maritalStatus,
         occupation,
@@ -163,9 +164,21 @@ const updateMember = async (req, res) => {
         regNo,
         residential,
         baptism,
-        holyEucharist,
         confirmation,
-        image
+        holyEucharist,
+        image: req.file ? req.file.filename : member.image, //update image if file is provided
+        gender,
+        stateOrigin,
+        cathCommunity,
+        email,
+        nextOfKin: {
+          fullName: nextOfKin.fullName.toUpperCase(),
+          email: nextOfKin.email,
+          address: nextOfKin.address,
+          gender: nextOfKin.gender,
+          relationship: nextOfKin.relationship,
+          phoneNo: nextOfKin.phoneNo
+        },
       }
     );
     if (!updateMember) {
@@ -198,14 +211,44 @@ const fetchMembersByDepId = async (req, res) => {
 };
 const DeletMember = async (req, res) => {
   try {
-      const {id} = req.params;
-      const deletMemb = await Member.findById({_id:id})// find member to delete by id 
-      await deletMemb.deleteOne() // delete the member by calling the deleteOne middleware specify in member model along with Nextofkin with the same id for the member 
-      fs.unlink(`public/uploads/${deletMemb.image}`, () => {})
-      return res.status(200).json({success: true, message: "Member deleted successfully"})
+    const { id } = req.params;
+    const deletMemb = await Member.findById({ _id: id })// find member to delete by id 
+    await deletMemb.deleteOne() // delete the member by calling the deleteOne middleware specify in member model along with Nextofkin with the same id for the member 
+    fs.unlink(`public/uploads/${deletMemb.image}`, () => { })
+    return res.status(200).json({ success: true, message: "Member deleted successfully" })
   } catch (error) {
-      return res.status(500).json({success: false, error: "Deleting Member server error"})
-      
+    return res.status(500).json({ success: false, error: "Deleting Member server error" })
+
   }
 }
-export { AddMember, upload, getMembers, getMember, updateMember, fetchMembersByDepId, DeletMember};
+
+const fetchHighestRegNo = async (req, res) => {
+  try {
+    // Find the member with the highest regNo
+    const highestRegNoMember = await Member.find().sort({regNo:-1}).limit(1);
+    // If no members found, return an error message
+    if (!highestRegNoMember) {
+      return res.status(404).json({
+        success: false,
+        message: "No members found in the database"
+      });
+    }
+
+
+    // Extract the numeric part of the regNo
+    const currentHighestRegNo = parseInt(highestRegNoMember[0].regNo);
+
+    return res.status(200).json({
+      success: true,
+      highestRegNo: currentHighestRegNo,
+      nextRegNo: currentHighestRegNo + 1
+    });
+  } catch (error) {
+    console.error("Error fetching highest regNo:", error);
+    return res.status(500).json({
+      success: false,
+      error: "Server error in fetching highest registration number"
+    });
+  }
+};
+export { AddMember, upload, getMembers, getMember, updateMember, fetchMembersByDepId, DeletMember, fetchHighestRegNo, };

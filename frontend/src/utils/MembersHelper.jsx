@@ -7,7 +7,7 @@ export const columns = [
   {
     name: "S/N",
     selector: (row) => row.sno,
-    width: '60px'
+    width: '80px'
   },
   {
     name: "Image",
@@ -19,14 +19,10 @@ export const columns = [
     name: "Name",
     selector: (row) => row.name,
     sortable: true,
-    width:'180px'
+    width:'200px'
   },
 
-  // {
-  //   name: "",
-  //   selector: (row) => row.dep_name,
-  //   width: '120px',
-  // },
+  
   {
     name: "DOB",
     selector: (row) => row.dob,
@@ -37,8 +33,8 @@ export const columns = [
   {
     name: "RegNo",
     selector: (row) => row.regNo,
-    // sortable: true,
-     width:"80px"
+    sortable: true,
+    width:"80px"
     
   },
   {
@@ -56,7 +52,7 @@ export const columns = [
     
   },
   {
-    name: "State-Origin",
+    name: "State_Origin",
     selector: (row) => row.stateOrigin,
     // sortable: true,
      width:"100px"

@@ -21,7 +21,7 @@ const verifyUser = async(req, res, next) => {
         next()  
 
     } catch (error) {
-      return res.status(500).json({succes:false, error: "Server error"})
+      return res.status(500).json({success:false, error: "Server error"})
     }
 }
 export default verifyUser;
